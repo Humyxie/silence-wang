@@ -1,0 +1,37 @@
+.share-button-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.share-button {
+  background: white;
+  color: #667eea;
+  border: 2px solid #667eea;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.share-button:hover {
+  background: #667eea;
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+.share-button.copied {
+  background: #6BCB77;
+  color: white;
+  border-color: #6BCB77;
+}
+
+.share-hint {
+  text-align: center;
+  color: #999;
+  font-size: 0.85rem;
+  margin: 0;
+}
