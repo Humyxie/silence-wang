@@ -1,4 +1,4 @@
-import type { QuizResult } from '../types/quiz';
+import type { QuizResult } from '../types/quiz.ts';
 import ShareButton from './ShareButton.tsx';
 import './ResultDisplay.css';
 

@@ -14,76 +14,49 @@ const db = new sqlite3.Database(dbPath, (err) => {
   console.log('Connected to SQLite database');
 });
 
-const initDatabase = () => {
-  db.serialize(() => {
-    // 创建歌曲表
-    db.run(`
-      CREATE TABLE IF NOT EXISTS songs (
-        id INTEGER PRIMARY KEY,
-        name TEXT NOT NULL,
-        album TEXT,
-        year INTEGER,
-        e_profile INTEGER,
-        s_profile INTEGER,
-        f_profile INTEGER,
-        j_profile INTEGER,
-        description TEXT,
-        lyrics_key TEXT
-      )
-    `, (err) => {
-      if (err) console.error('Error creating songs table:', err);
-      else console.log('Songs table ready');
-    });
+// 初始化表结构
+export function initDatabase(): Promise<void> {
+  return new Promise((resolve, reject) => {
+    db.serialize(() => {
+      // 测试结果表
+      db.run(`
+        CREATE TABLE IF NOT EXISTS test_results (
+          id TEXT PRIMARY KEY,
+          primary_personality TEXT NOT NULL,
+          secondary_personality TEXT,
+          primary_score INTEGER NOT NULL,
+          all_scores TEXT NOT NULL,
+          dimension_scores TEXT,
+          version TEXT DEFAULT '1.0.0',
+          user_agent TEXT,
+          referer TEXT,
+          created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+          updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
+        )
+      `, (err) => {
+        if (err) reject(err);
+      });
 
-    // 创建测试结果表
-    db.run(`
-      CREATE TABLE IF NOT EXISTS test_results (
-        id TEXT PRIMARY KEY,
-        e_score INTEGER,
-        s_score INTEGER,
-        f_score INTEGER,
-        j_score INTEGER,
-        matched_song_id INTEGER,
-        distance REAL,
-        user_answers TEXT,
-        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        short_id TEXT UNIQUE,
-        FOREIGN KEY (matched_song_id) REFERENCES songs(id)
-      )
-    `, (err) => {
-      if (err) console.error('Error creating test_results table:', err);
-      else console.log('Test results table ready');
-    });
+      // 索引
+      db.run(`CREATE INDEX IF NOT EXISTS idx_primary_personality ON test_results(primary_personality)`);
+      db.run(`CREATE INDEX IF NOT EXISTS idx_created_at ON test_results(created_at)`);
 
-    // 插入歌曲数据
-    const stmt = db.prepare(`
-      INSERT OR REPLACE INTO songs
-      (id, name, album, year, e_profile, s_profile, f_profile, j_profile, description, lyrics_key)
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-    `);
-
-    songsData.forEach((song: any) => {
-      stmt.run(
-        song.id,
-        song.name,
-        song.album,
-        song.year,
-        song.mbti_profile.E,
-        song.mbti_profile.S,
-        song.mbti_profile.F,
-        song.mbti_profile.J,
-        song.description,
-        song.lyrics_key
-      );
-    });
-
-    stmt.finalize((err) => {
-      if (err) console.error('Error inserting songs:', err);
-      else console.log(`Inserted ${songsData.length} songs into database`);
-      db.close();
-      process.exit(0);
+      // 人格统计表
+      db.run(`
+        CREATE TABLE IF NOT EXISTS personality_stats (
+          personality_id TEXT PRIMARY KEY,
+          count INTEGER DEFAULT 0,
+          last_updated DATETIME DEFAULT CURRENT_TIMESTAMP
+        )
+      `, (err) => {
+        if (err) reject(err);
+        else {
+          console.log('✅ 数据库初始化完成');
+          resolve();
+        }
+      });
     });
   });
-};
+}
 
-initDatabase();
+export default db;

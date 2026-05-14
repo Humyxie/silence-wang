@@ -1,43 +1,29 @@
-export interface MBTIScore {
-  E: number;
-  S: number;
-  F: number;
-  J: number;
+import type { PersonalityId } from './personality';
+
+export type Dimension = 'energy' | 'emotion' | 'attitude' | 'relationship';
+
+export interface QuestionOption {
+  id: 'A' | 'B' | 'C' | 'D';
+  text: string;
+  scores: Partial<Record<PersonalityId, number>>;
 }
 
-export interface Song {
+export interface Question {
   id: number;
-  name: string;
-  album: string;
-  year: number;
-  description: string;
-  lyrics_key: string;
-  distance?: number;
-}
-
-export interface QuizResult {
-  mbti_type: string;
-  scores: MBTIScore;
-  matched_song: Song;
-  short_id: string;
-  full_id: string;
+  text: string;
+  dimension: Dimension;
+  options: QuestionOption[];
 }
 
 export interface UserAnswers {
-  e: number[];
-  s: number[];
-  f: number[];
-  j: number[];
+  [questionId: number]: 'A' | 'B' | 'C' | 'D';
 }
 
-export interface QuizQuestion {
-  dimension: 'E' | 'S' | 'F' | 'J';
-  index: number;
-  text: string;
-  options: QuizOption[];
-}
-
-export interface QuizOption {
-  text: string;
-  value: number;
+export interface QuizState {
+  status: 'start' | 'in_progress' | 'completed';
+  currentQuestionIndex: number;
+  answers: UserAnswers;
+  result: PersonalityId | null;
+  startedAt: number | null;
+  completedAt: number | null;
 }

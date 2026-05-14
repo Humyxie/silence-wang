@@ -1,231 +1,188 @@
-import type { QuizQuestion } from '../types/quiz';
+import type { Question } from '../types/quiz';
+import { PERSONALITY_IDS } from '../types/personality';
 
-export const quizQuestions: QuizQuestion[] = [
-  // E/I 维度 - 5题
-  {
-    dimension: 'E',
-    index: 0,
-    text: '在与汪苏泷粉丝互动时，你更倾向于：',
-    options: [
-      { text: '主动在社交媒体上分享和讨论他的新歌', value: 2 },
-      { text: '偶尔参与讨论和分享', value: 1 },
-      { text: '更喜欢私下享受他的音乐', value: -1 },
-      { text: '独自一个人静静地听音乐，不太参与互动', value: -2 },
-    ],
-  },
-  {
-    dimension: 'E',
-    index: 1,
-    text: '你参加粉丝见面会或演唱会时：',
-    options: [
-      { text: '兴奋地准备应援、与其他粉丝互动', value: 2 },
-      { text: '开心地参加，有时会与人互动', value: 1 },
-      { text: '更喜欢享受音乐和演出本身', value: -1 },
-      { text: '倾向于保持低调，只为了听音乐', value: -2 },
-    ],
-  },
-  {
-    dimension: 'E',
-    index: 2,
-    text: '假期时你会：',
-    options: [
-      { text: '组织或参加热闹的活动和聚会', value: 2 },
-      { text: '和朋友外出活动为主', value: 1 },
-      { text: '在家休息和放松为主，偶尔外出', value: -1 },
-      { text: '更喜欢独处或与亲密的人共处', value: -2 },
-    ],
-  },
-  {
-    dimension: 'E',
-    index: 3,
-    text: '面对新事物时你：',
-    options: [
-      { text: '迫不及待地跳入尝试，充满热情', value: 2 },
-      { text: '愿意主动尝试新的体验', value: 1 },
-      { text: '需要一些时间观察和思考', value: -1 },
-      { text: '更倾向于谨慎观察再做决定', value: -2 },
-    ],
-  },
-  {
-    dimension: 'E',
-    index: 4,
-    text: '在工作或学习中你：',
-    options: [
-      { text: '喜欢团队合作和频繁沟通', value: 2 },
-      { text: '可以适应团队也能独立工作', value: 1 },
-      { text: '倾向于独立完成任务', value: -1 },
-      { text: '更喜欢独自专注于工作', value: -2 },
-    ],
-  },
+const {
+  LITTLE_STAR, GRAVITY_PERSON, EXCLUSIVE_TASTE, ETERNAL_LOVER,
+  RING_ENGRAVER, ART_REBEL, SUDDEN_SUMMER, STAR_HIDER, ENTERTAINER,
+  LOVE_ANIMAL, DANCE_BEFORE_GOODBYE, DEFIANT, MARS_RESEARCHER,
+  ISLAND_POET, SUNNY_COLLECTOR, LUBRICANT, THINK_OF_US
+} = PERSONALITY_IDS;
 
-  // S/N 维度 - 5题
+export const questions: Question[] = [
   {
-    dimension: 'S',
-    index: 5,
-    text: '听音乐时你更注重：',
+    id: 1,
+    text: '周末一整天完全属于自己，你更可能怎么过？',
+    dimension: 'energy',
     options: [
-      { text: '具体的歌词内容和音乐旋律', value: 2 },
-      { text: '歌词和音乐都很重要', value: 1 },
-      { text: '音乐背后的情感和意义', value: -1 },
-      { text: '音乐所传达的深层思想和哲理', value: -2 },
-    ],
+      { id: 'A', text: '一个人在家听歌、写点东西，或者什么都不做', scores: { [LITTLE_STAR]: 1, [ISLAND_POET]: 1, [SUNNY_COLLECTOR]: 1 } },
+      { id: 'B', text: '约朋友出来聚聚，去热闹的地方', scores: { [GRAVITY_PERSON]: 1, [ENTERTAINER]: 1 } },
+      { id: 'C', text: '完成一件一直想做但没做的事', scores: { [STAR_HIDER]: 1, [ETERNAL_LOVER]: 1 } },
+      { id: 'D', text: '随机：看心情决定，可能出门也可能宅', scores: { [ART_REBEL]: 1, [DANCE_BEFORE_GOODBYE]: 1 } }
+    ]
   },
   {
-    dimension: 'S',
-    index: 6,
-    text: '在日常生活中你：',
+    id: 2,
+    text: '听到一首很触动的歌，你的第一反应通常是？',
+    dimension: 'emotion',
     options: [
-      { text: '关注眼前的现实，按部就班', value: 2 },
-      { text: '既关注现实也会有些想象', value: 1 },
-      { text: '经常思考潜在的可能性', value: -1 },
-      { text: '经常陷入幻想和对未来的遐想', value: -2 },
-    ],
+      { id: 'A', text: '单曲循环，沉浸其中，会想"这写的就是我"', scores: { [RING_ENGRAVER]: 1, [THINK_OF_US]: 1 } },
+      { id: 'B', text: '分析这首歌的歌词写得妙在哪里', scores: { [LOVE_ANIMAL]: 1 } },
+      { id: 'C', text: '分享到朋友圈或发给特定的人', scores: { [GRAVITY_PERSON]: 1, [SUDDEN_SUMMER]: 1 } },
+      { id: 'D', text: '默默收藏，不会告诉任何人', scores: { [ISLAND_POET]: 1, [STAR_HIDER]: 1 } }
+    ]
   },
   {
-    dimension: 'S',
-    index: 7,
-    text: '你倾向于做出决定时：',
+    id: 3,
+    text: '在感情里，你更接近哪种状态？',
+    dimension: 'relationship',
     options: [
-      { text: '根据具体的事实和数据', value: 2 },
-      { text: '考虑具体信息和一些直觉', value: 1 },
-      { text: '依靠直觉和想象力', value: -1 },
-      { text: '完全跟随自己的直觉和灵感', value: -2 },
-    ],
+      { id: 'A', text: '希望"不分手的恋爱"，害怕失去，愿意付出很多', scores: { [ETERNAL_LOVER]: 2 } },
+      { id: 'B', text: '喜欢一个人会小心翼翼，像藏着一颗小星星', scores: { [LITTLE_STAR]: 2 } },
+      { id: 'C', text: '理性看待，不会轻易上头，会分析合不合适', scores: { [LOVE_ANIMAL]: 2 } },
+      { id: 'D', text: '随缘，合则来不合则去，不想太累', scores: { [DANCE_BEFORE_GOODBYE]: 1, [ART_REBEL]: 1 } }
+    ]
   },
   {
-    dimension: 'S',
-    index: 8,
-    text: '对于计划和目标你：',
+    id: 4,
+    text: '面对一个很难但很想实现的目标，你会？',
+    dimension: 'attitude',
     options: [
-      { text: '制定详细的计划并按步骤执行', value: 2 },
-      { text: '制定计划但也保持一定灵活性', value: 1 },
-      { text: '更倾向于灵活应对，不过分计划', value: -1 },
-      { text: '不太喜欢详细计划，跟随内心想法', value: -2 },
-    ],
+      { id: 'A', text: '死磕到底，不服输，证明自己可以', scores: { [DEFIANT]: 2 } },
+      { id: 'B', text: '慢慢来，把它藏心里，默默努力', scores: { [STAR_HIDER]: 2 } },
+      { id: 'C', text: '享受过程，结果随缘，不行就换条路', scores: { [MARS_RESEARCHER]: 1, [ART_REBEL]: 1 } },
+      { id: 'D', text: '拉着朋友一起，有人陪着更有动力', scores: { [GRAVITY_PERSON]: 1, [THINK_OF_US]: 1 } }
+    ]
   },
   {
-    dimension: 'S',
-    index: 9,
-    text: '旅行或探索时你：',
+    id: 5,
+    text: '在朋友聚会中，你通常是？',
+    dimension: 'relationship',
     options: [
-      { text: '喜欢有详细的行程规划', value: 2 },
-      { text: '计划和随性结合', value: 1 },
-      { text: '倾向于随意探索', value: -1 },
-      { text: '完全随性，享受未知的冒险', value: -2 },
-    ],
-  },
-
-  // F/T 维度 - 5题
-  {
-    dimension: 'F',
-    index: 10,
-    text: '面对他人的困难时你：',
-    options: [
-      { text: '立刻感同身受，想要帮助和安慰', value: 2 },
-      { text: '既感同身受又会考虑实际解决方案', value: 1 },
-      { text: '更多地思考解决问题的方案', value: -1 },
-      { text: '首先分析问题的原因和逻辑', value: -2 },
-    ],
+      { id: 'A', text: '气氛担当，有你在就不会冷场', scores: { [ENTERTAINER]: 2 } },
+      { id: 'B', text: '照顾大家情绪的那个人，会注意到谁被冷落了', scores: { [THINK_OF_US]: 1, [SUNNY_COLLECTOR]: 1 } },
+      { id: 'C', text: '话不多，但每句话都在点上，让人舒服', scores: { [LUBRICANT]: 2 } },
+      { id: 'D', text: '想说话但不知道怎么开口，有时觉得自己不合群', scores: { [LITTLE_STAR]: 1, [ISLAND_POET]: 1 } }
+    ]
   },
   {
-    dimension: 'F',
-    index: 11,
-    text: '在做决定时你认为最重要的是：',
+    id: 6,
+    text: '当你难过时，你更倾向于？',
+    dimension: 'emotion',
     options: [
-      { text: '这个决定如何影响人际关系', value: 2 },
-      { text: '权衡人情和逻辑', value: 1 },
-      { text: '理性分析和客观判断', value: -1 },
-      { text: '纯粹的逻辑和事实', value: -2 },
-    ],
+      { id: 'A', text: '一个人扛着，不想让别人看到', scores: { [STAR_HIDER]: 1, [RING_ENGRAVER]: 1 } },
+      { id: 'B', text: '找最信任的人说出来，说出来就好多了', scores: { [THINK_OF_US]: 1, [SUDDEN_SUMMER]: 1 } },
+      { id: 'C', text: '用幽默掩盖，嘻嘻哈哈就过去了', scores: { [ENTERTAINER]: 2 } },
+      { id: 'D', text: '听歌、写东西，把情绪放进作品里', scores: { [ISLAND_POET]: 1, [SUNNY_COLLECTOR]: 1 } }
+    ]
   },
   {
-    dimension: 'F',
-    index: 12,
-    text: '面对批评你：',
+    id: 7,
+    text: '翻到老照片/旧聊天记录，你会？',
+    dimension: 'relationship',
     options: [
-      { text: '感到被伤害，需要温暖的支持', value: 2 },
-      { text: '会有些难过但也认真听取意见', value: 1 },
-      { text: '客观地分析批评的有效性', value: -1 },
-      { text: '只关注批评是否有逻辑根据', value: -2 },
-    ],
+      { id: 'A', text: '看得停不下来，陷入回忆里，有点emo', scores: { [SUDDEN_SUMMER]: 2, [RING_ENGRAVER]: 2 } },
+      { id: 'B', text: '笑一笑，感慨一下，然后关掉', scores: { [EXCLUSIVE_TASTE]: 1, [THINK_OF_US]: 1 } },
+      { id: 'C', text: '截图发给当时一起的那个人', scores: { [GRAVITY_PERSON]: 1 } },
+      { id: 'D', text: '几乎不翻，过去就过去了', scores: { [DANCE_BEFORE_GOODBYE]: 1, [ART_REBEL]: 1 } }
+    ]
   },
   {
-    dimension: 'F',
-    index: 13,
-    text: '与朋友的冲突中你倾向于：',
+    id: 8,
+    text: '对于"依赖别人"这件事，你的态度是？',
+    dimension: 'relationship',
     options: [
-      { text: '强调和谐，优先恢复关系', value: 2 },
-      { text: '既想和谐也想解决问题', value: 1 },
-      { text: '更关注问题本身的解决', value: -1 },
-      { text: '客观分析谁对谁错', value: -2 },
-    ],
+      { id: 'A', text: '很难依赖别人，习惯自己扛', scores: { [LITTLE_STAR]: 1, [ISLAND_POET]: 1 } },
+      { id: 'B', text: '会依赖很信任的人，但也怕给对方添麻烦', scores: { [THINK_OF_US]: 1, [SUNNY_COLLECTOR]: 1 } },
+      { id: 'C', text: '享受互相依赖的感觉，这是亲密的表现', scores: { [ETERNAL_LOVER]: 2 } },
+      { id: 'D', text: '不太想依赖别人，也不想被人依赖', scores: { [LOVE_ANIMAL]: 1, [DEFIANT]: 1 } }
+    ]
   },
   {
-    dimension: 'F',
-    index: 14,
-    text: '你欣赏的人品质是：',
+    id: 9,
+    text: '什么样的环境让你最有安全感？',
+    dimension: 'energy',
     options: [
-      { text: '温暖、体贴、有同理心', value: 2 },
-      { text: '温暖和聪明的结合', value: 1 },
-      { text: '聪明、理性、有能力', value: -1 },
-      { text: '逻辑清晰、客观公正', value: -2 },
-    ],
-  },
-
-  // J/P 维度 - 5题
-  {
-    dimension: 'J',
-    index: 15,
-    text: '在日程安排中你：',
-    options: [
-      { text: '喜欢提前规划，按计划执行', value: 2 },
-      { text: '有基本计划但保持灵活性', value: 1 },
-      { text: '倾向于临时应对，不过度计划', value: -1 },
-      { text: '完全随性，不喜欢被计划束缚', value: -2 },
-    ],
+      { id: 'A', text: '安静、熟悉、只有自己的空间', scores: { [ISLAND_POET]: 1, [STAR_HIDER]: 1 } },
+      { id: 'B', text: '有熟悉的人在身边，不需要做什么就很安心', scores: { [THINK_OF_US]: 1, [SUNNY_COLLECTOR]: 1 } },
+      { id: 'C', text: '热闹、有音乐、可以释放自己的场合', scores: { [ENTERTAINER]: 1, [DANCE_BEFORE_GOODBYE]: 1 } },
+      { id: 'D', text: '井井有条、一切都在掌控之中的环境', scores: { [ETERNAL_LOVER]: 1, [DEFIANT]: 1 } }
+    ]
   },
   {
-    dimension: 'J',
-    index: 16,
-    text: '在工作或学习中你：',
+    id: 10,
+    text: '面对规则和权威，你的态度是？',
+    dimension: 'attitude',
     options: [
-      { text: '喜欢有清晰的目标和截止日期', value: 2 },
-      { text: '需要目标但也有一定灵活性', value: 1 },
-      { text: '在截止日期前才会加紧', value: -1 },
-      { text: '更享受过程，不太在意截止日期', value: -2 },
-    ],
+      { id: 'A', text: '该遵守的遵守，但内心有自己的判断', scores: { [LUBRICANT]: 1 } },
+      { id: 'B', text: '不合理的规则就是要打破', scores: { [DEFIANT]: 2 } },
+      { id: 'C', text: '能不碰就不碰，尽量让自己舒服', scores: { [MARS_RESEARCHER]: 1, [ART_REBEL]: 1 } },
+      { id: 'D', text: '守规则让我有安全感', scores: { [ETERNAL_LOVER]: 1 } }
+    ]
   },
   {
-    dimension: 'J',
-    index: 17,
-    text: '你的房间和工作空间通常是：',
+    id: 11,
+    text: '你在爱情里最害怕的是？',
+    dimension: 'emotion',
     options: [
-      { text: '井井有条，每样东西都有位置', value: 2 },
-      { text: '大致整洁，可以接受一些混乱', value: 1 },
-      { text: '有些凌乱但你知道东西在哪', value: -1 },
-      { text: '很凌乱，创意氛围很浓', value: -2 },
-    ],
+      { id: 'A', text: '对方其实没那么喜欢我', scores: { [LITTLE_STAR]: 2 } },
+      { id: 'B', text: '最终还是会分手，走不到最后', scores: { [RING_ENGRAVER]: 1, [ETERNAL_LOVER]: 1 } },
+      { id: 'C', text: '失去自我，变成自己不认识的样子', scores: { [LOVE_ANIMAL]: 2 } },
+      { id: 'D', text: '对方不能理解我的沉默和内心世界', scores: { [ISLAND_POET]: 1, [SUNNY_COLLECTOR]: 1 } }
+    ]
   },
   {
-    dimension: 'J',
-    index: 18,
-    text: '面对新项目时你的第一反应是：',
+    id: 12,
+    text: '你在关系里更多是？',
+    dimension: 'relationship',
     options: [
-      { text: '立即制定详细计划和步骤', value: 2 },
-      { text: '思考主要步骤并灵活调整', value: 1 },
-      { text: '先尝试再调整方案', value: -1 },
-      { text: '直接开始，在过程中探索', value: -2 },
-    ],
+      { id: 'A', text: '付出型：习惯了照顾别人', scores: { [THINK_OF_US]: 1, [SUNNY_COLLECTOR]: 1 } },
+      { id: 'B', text: '被动型：等对方主动，怕自作多情', scores: { [LITTLE_STAR]: 1, [SUDDEN_SUMMER]: 1 } },
+      { id: 'C', text: '平等型：你对我好，我就对你好', scores: { [EXCLUSIVE_TASTE]: 2 } },
+      { id: 'D', text: '自由型：不想被关系束缚', scores: { [DANCE_BEFORE_GOODBYE]: 2 } }
+    ]
   },
   {
-    dimension: 'J',
-    index: 19,
-    text: '对于规则和约定你：',
+    id: 13,
+    text: '面对变化和不确定性，你通常？',
+    dimension: 'attitude',
     options: [
-      { text: '认为规则很重要，应该遵守', value: 2 },
-      { text: '大多数情况下遵守规则', value: 1 },
-      { text: '根据情况灵活对待规则', value: -1 },
-      { text: '更注重规则的目的而非形式', value: -2 },
-    ],
+      { id: 'A', text: '会焦虑，希望一切按计划来', scores: { [ETERNAL_LOVER]: 1, [STAR_HIDER]: 1 } },
+      { id: 'B', text: '兵来将挡，水来土掩', scores: { [DEFIANT]: 1, [ENTERTAINER]: 1 } },
+      { id: 'C', text: '拥抱变化，新的才有趣', scores: { [MARS_RESEARCHER]: 1, [ART_REBEL]: 1 } },
+      { id: 'D', text: '表面上OK，内心其实需要时间适应', scores: { [RING_ENGRAVER]: 1, [ISLAND_POET]: 1 } }
+    ]
   },
+  {
+    id: 14,
+    text: '你更认同哪种表达爱的方式？',
+    dimension: 'emotion',
+    options: [
+      { id: 'A', text: '默默记住对方的所有喜好和细节', scores: { [EXCLUSIVE_TASTE]: 1, [THINK_OF_US]: 1 } },
+      { id: 'B', text: '大方说出来，不怕全世界知道', scores: { [GRAVITY_PERSON]: 1, [DEFIANT]: 1 } },
+      { id: 'C', text: '用行动证明，而不是嘴上说说', scores: { [STAR_HIDER]: 1, [SUNNY_COLLECTOR]: 1 } },
+      { id: 'D', text: '给对方空间，不打扰是我的温柔', scores: { [ISLAND_POET]: 1, [LUBRICANT]: 1 } }
+    ]
+  },
+  {
+    id: 15,
+    text: '对于已经结束的关系，你通常？',
+    dimension: 'relationship',
+    options: [
+      { id: 'A', text: '很难释怀，会反复想"如果当时……"', scores: { [RING_ENGRAVER]: 2, [SUDDEN_SUMMER]: 2 } },
+      { id: 'B', text: '会记得美好的部分，但不会再回头', scores: { [EXCLUSIVE_TASTE]: 1, [THINK_OF_US]: 1 } },
+      { id: 'C', text: '彻底翻篇，再也不提', scores: { [DEFIANT]: 1, [DANCE_BEFORE_GOODBYE]: 1 } },
+      { id: 'D', text: '用新的关系覆盖旧的回忆', scores: { [GRAVITY_PERSON]: 1 } }
+    ]
+  },
+  {
+    id: 16,
+    text: '你对哪种类型的内容更感兴趣？',
+    dimension: 'attitude',
+    options: [
+      { id: 'A', text: '心理学、人性分析、情感解读', scores: { [LOVE_ANIMAL]: 1 } },
+      { id: 'B', text: '冷知识、未解之谜、科幻设定', scores: { [MARS_RESEARCHER]: 2 } },
+      { id: 'C', text: '音乐、艺术、创作相关', scores: { [ISLAND_POET]: 1, [SUNNY_COLLECTOR]: 1 } },
+      { id: 'D', text: '搞笑、综艺、轻松的内容', scores: { [ENTERTAINER]: 1 } }
+    ]
+  }
 ];

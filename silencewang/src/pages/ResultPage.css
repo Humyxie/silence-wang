@@ -1,0 +1,408 @@
+/* src/pages/ResultPage.css */
+
+.result-page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+}
+
+.result-container {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* 结果卡片 */
+.result-card {
+  background: white;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  animation: slideUp 0.4s ease;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 头部颜色区域 */
+.result-header {
+  height: 100px;
+}
+
+/* 内容区域 */
+.result-content {
+  padding: 30px;
+  text-align: center;
+}
+
+/* 人格名称 */
+.personality-name {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+/* 人格标签语 */
+.personality-tagline {
+  font-size: 1rem;
+  color: #667eea;
+  font-weight: 500;
+  margin-bottom: 20px;
+}
+
+/* 描述文本 */
+.personality-description {
+  font-size: 0.95rem;
+  color: #666;
+  line-height: 1.6;
+  margin-bottom: 24px;
+}
+
+/* 特质标签容器 */
+.traits-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 30px;
+}
+
+/* 特质标签 */
+.trait-tag {
+  background: #f0ebff;
+  color: #667eea;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+/* 歌曲卡片 */
+.song-card {
+  background: #f8f9ff;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 30px;
+  border: 1px solid #e8eaff;
+}
+
+.song-label {
+  font-size: 0.8rem;
+  color: #999;
+  margin-bottom: 8px;
+}
+
+/* .song-name {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #667eea;
+  text-decoration: none;
+  display: inline-block;
+  margin-bottom: 12px;
+  transition: color 0.2s ease;
+}
+
+.song-name:hover {
+  color: #5a67d8;
+  text-decoration: underline;
+} */
+
+.song-lyric {
+  font-size: 0.9rem;
+  color: #888;
+  font-style: italic;
+  margin-bottom: 8px;
+  line-height: 1.5;
+}
+
+.song-artist {
+  font-size: 0.8rem;
+  color: #aaa;
+}
+
+/* 按钮组 */
+.button-group {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 12px;
+}
+
+/* 分享按钮 */
+.share-button {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  padding: 14px 20px;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 100%;
+}
+
+.share-button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+.share-button:active {
+  transform: translateY(0);
+}
+/* 保存图片按钮 */
+.save-image-button {
+  background: white;
+  border: 2px solid #e0e0e0;
+  color: #666;
+  padding: 14px 20px;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 100%;
+}
+
+.save-image-button:hover:not(:disabled) {
+  background: #f9f7ff;
+  border-color: #667eea;
+  color: #667eea;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+}
+
+.save-image-button:active:not(:disabled) {
+  transform: translateY(0);
+}
+
+.save-image-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* 重新测试按钮 */
+.restart-button {
+  background: white;
+  border: 2px solid #e0e0e0;
+  color: #666;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 100%;
+}
+
+.restart-button:hover {
+  border-color: #667eea;
+  color: #667eea;
+  background: #f9f7ff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.2);
+}
+
+.restart-button:active {
+  transform: scale(0.98);
+}
+
+/* 页脚 */
+.footer-note {
+  text-align: center;
+  font-size: 0.75rem;
+  color: rgba(255, 255, 255, 0.7);
+  margin-top: 20px;
+}
+
+/* 加载状态 */
+.loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid #e0e0e0;
+  border-top-color: #667eea;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+  margin: 0 auto 16px;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.loading-text {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+/* 错误状态 */
+.error-icon {
+  font-size: 3rem;
+  margin-bottom: 16px;
+}
+
+.error-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 8px;
+}
+
+.error-message {
+  color: #666;
+  margin-bottom: 24px;
+}
+
+.result-badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+
+.badge-icon {
+  font-size: 0.9rem;
+}
+
+.badge-text {
+  font-size: 0.7rem;
+  color: #999;
+  letter-spacing: 1px;
+}
+
+/* 歌曲名称显示（非链接） */
+.song-name-display {
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #667eea;
+  text-decoration: none;
+  display: inline-block;
+  margin-bottom: 12px;
+  transition: color 0.2s ease;
+}
+
+/* 截图底部水印 */
+.capture-footer {
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid #eee;
+  text-align: center;
+}
+
+.capture-footer p {
+  font-size: 0.65rem;
+  color: #bbb;
+  letter-spacing: 0.5px;
+}
+
+/* 截图时的临时样式（防止滚动条干扰） */
+body.capturing {
+  overflow: hidden !important;
+}
+
+/* 响应式设计 */
+@media (max-width: 600px) {
+  .result-page {
+    padding: 20px 16px;
+    align-items: flex-start;
+    padding-top: 60px;
+  }
+  
+  .result-content {
+    padding: 24px 20px;
+  }
+  
+  .personality-name {
+    font-size: 1.6rem;
+  }
+  
+  .personality-tagline {
+    font-size: 0.9rem;
+  }
+  
+  .personality-description {
+    font-size: 0.9rem;
+  }
+  
+  .song-name-display {
+    font-size: 1.1rem;
+  }
+  
+  .result-header {
+    height: 80px;
+  }
+
+  .capture-footer {
+    font-size: 0.55rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .result-content {
+    padding: 20px 16px;
+  }
+  
+  .personality-name {
+    font-size: 1.4rem;
+  }
+  
+  .traits-container {
+    gap: 6px;
+  }
+  
+  .trait-tag {
+    padding: 4px 10px;
+    font-size: 0.7rem;
+  }
+  
+  .song-card {
+    padding: 16px;
+  }
+  
+  .share-button,
+  .restart-button {
+    padding: 12px 16px;
+    font-size: 0.9rem;
+  }
+}
+
+.result-card.capturing {
+  width: 500px !important;
+  margin: 0 auto !important;
+  filter: none !important;
+  background-color: #ffffff !important;
+  background-color: #ffffff !important;
+}
+
+.result-card.capturing * {
+  /* 移除所有可能导致颜色变化的滤镜 */
+  filter: none !important;
+  backdrop-filter: none !important;
+}
+
+.result-card.capturing .result-header {
+  height: 100px !important;
+}
+
+.result-card.capturing .personality-description {
+  max-width: 440px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+}
