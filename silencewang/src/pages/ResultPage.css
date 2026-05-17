@@ -17,7 +17,7 @@
 
 /* 结果卡片 */
 .result-card {
-  background: white;
+  background: #ffffff;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   border-radius: 12px;
@@ -166,7 +166,7 @@
 }
 /* 保存图片按钮 */
 .save-image-button {
-  background: white;
+  background: #ffffff;
   border: 2px solid #e0e0e0;
   color: #666;
   padding: 14px 20px;
@@ -384,25 +384,6 @@ body.capturing {
 }
 
 .result-card.capturing {
-  width: 500px !important;
-  margin: 0 auto !important;
-  filter: none !important;
-  background-color: #ffffff !important;
-  background-color: #ffffff !important;
-}
-
-.result-card.capturing * {
-  /* 移除所有可能导致颜色变化的滤镜 */
-  filter: none !important;
-  backdrop-filter: none !important;
-}
-
-.result-card.capturing .result-header {
-  height: 100px !important;
-}
-
-.result-card.capturing .personality-description {
-  max-width: 440px !important;
-  margin-left: auto !important;
-  margin-right: auto !important;
+  animation: none !important;
+  box-shadow: none !important;
 }

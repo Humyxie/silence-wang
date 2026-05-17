@@ -90,63 +90,71 @@ export default function ResultPage() {
 
   // 保存为图片
   const handleSaveAsImage = async () => {
-  if (!resultCardRef.current) return;
-  
-  setIsCapturing(true);
-  
-  try {
-    const element = resultCardRef.current;
-    
-    // 添加 capturing 类
-    element.classList.add('capturing');
+    if (!resultCardRef.current) return;
 
-    // 设置一个固定的背景色，避免透明背景导致颜色问题
-    const originalBg = element.style.backgroundColor;
-    element.style.backgroundColor = '#ffffff';
-    
-    // 等待样式应用
-    await new Promise(resolve => setTimeout(resolve, 150));
-    
-    const canvas = await html2canvas(element, {
-      scale: 2.5,
-      backgroundColor: '#ffffff',
-      logging: false,
-      useCORS: true, // 如果有跨域图片资源
-      allowTaint: false,
-      imageTimeOut: 0,
-      onclone: (clonedDoc, element) => {
-        // 确保克隆文档也有 capturing 类
-        const clonedCard = clonedDoc.querySelector('.result-card');
-        if (clonedCard) {
-          clonedCard.classList.add('capturing');
-          (clonedCard as HTMLElement).style.backgroundColor = '#ffffff';
-        }
+    console.log('Result Card Element:', resultCardRef.current);
+
+    setIsCapturing(true);
+
+    try {
+      const element = resultCardRef.current;
+
+      // 添加 capturing 类
+      element.classList.add('capturing');
+
+      // 设置一个固定的背景色，避免透明背景导致颜色问题
+      // const originalBg = element.style.backgroundColor;
+      // element.style.backgroundColor = '#ffffff';
+
+      // 等待样式应用
+      // await new Promise(resolve => setTimeout(resolve, 150));
+
+      const clone = element.cloneNode(true) as HTMLDivElement;
+      clone.style.position = 'fixed';
+      clone.style.top = '-9999px';
+      clone.style.left = '-9999px';
+      clone.style.width = element.offsetWidth + 'px';
+      clone.style.margin = '0';
+      clone.style.backgroundColor = '#ffffff'; // 强制纯白背景
+      document.body.appendChild(clone);
+
+      const canvas = await html2canvas(element, {
+        scale: 2, // 提高分辨率
+        logging: false,
+        useCORS: true, // 如果有跨域图片资源
+        allowTaint: false,
+        backgroundColor: '#ffffff',
+        removeContainer: true,
+        x: 0,
+        y: 0,
+        width: element.offsetWidth,
+        height: element.offsetHeight,
+      });
+
+      // 移除克隆元素
+      document.body.removeChild(clone);
+      element.classList.remove('capturing');
+
+      // 下载
+      const link = document.createElement('a');
+      const personalityName = personality?.name || '测试结果';
+      link.download = `汪苏泷人格测试-${personalityName}.png`;
+      link.href = canvas.toDataURL('image/png', 1.0);
+      link.click();
+
+
+    } catch (error) {
+      console.error('截图失败:', error);
+      alert('保存图片失败，请重试');
+      // 确保恢复样式
+      if (resultCardRef.current) {
+        resultCardRef.current.classList.remove('capturing');
+        resultCardRef.current.style.backgroundColor = '';
       }
-    });
-    
-    // 恢复原始样式
-    element.classList.remove('capturing');
-    element.style.backgroundColor = originalBg;
-    
-    // 下载图片
-    const link = document.createElement('a');
-    const personalityName = personality?.name || '测试结果';
-    link.download = `汪苏泷人格测试-${personalityName}.png`;
-    link.href = canvas.toDataURL('image/png', 1.0);
-    link.click();
-    
-  } catch (error) {
-    console.error('截图失败:', error);
-    alert('保存图片失败，请重试');
-    // 确保恢复样式
-    if (resultCardRef.current) {
-      resultCardRef.current.classList.remove('capturing');
-      resultCardRef.current.style.backgroundColor = '';
+    } finally {
+      setIsCapturing(false);
     }
-  } finally {
-    setIsCapturing(false);
-  }
-};
+  };
 
   if (loading) {
     return (
@@ -238,7 +246,7 @@ export default function ResultPage() {
             {/* 推荐歌曲 */}
             <div className="song-card">
               <p className="song-label">🎵 推荐给你的汪苏泷歌曲</p>
-              <a 
+              <a
                 href={personality.song.link}
                 target="_blank"
                 rel="noopener noreferrer"
