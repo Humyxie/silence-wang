@@ -6,13 +6,17 @@ export default defineConfig({
   plugins: [react()],
   server: {
     hmr: true,
-    port: parseInt(process.env.DEV_PORT || '5173'),
+    port: 5173,
     proxy: {
       '/api': {
         target: process.env.BACKEND_URL || 'http://localhost:3001',
         changeOrigin: true,
-        // rewrite: (path) => path.replace(/^\/api/, ''),
       },
     },
+  },
+  // 生产环境构建配置
+  build: {
+    outDir: 'dist',
+    sourcemap: false,
   },
 })
