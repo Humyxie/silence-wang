@@ -1,12 +1,27 @@
 import type { PersonalityId } from '../types/personality';
+import { personalities } from '../data/personalities'; 
 import type { UserAnswers } from '../types/quiz';
 import type { PersonalityScore } from '../types/result';
 import { questions } from '../data/quizQuestions';
 
+// 获取所有 PersonalityId
+const getAllPersonalityIds = (): PersonalityId[] => {
+  return Object.keys(personalities) as PersonalityId[];
+};
+
+// 初始化所有分数为 0
+const initializeScores = (): Record<PersonalityId, number> => {
+  const scores = {} as Record<PersonalityId, number>;
+  getAllPersonalityIds().forEach(id => {
+    scores[id] = 0;
+  });
+  return scores;
+};
+
 // 计算各人格总分
 export function calculateScores(answers: UserAnswers): Record<PersonalityId, number> {
-  const scores: Record<PersonalityId, number> = {};
-  
+  const scores = initializeScores();
+
   Object.entries(answers).forEach(([questionIdStr, optionId]) => {
     const questionId = parseInt(questionIdStr);
     const question = questions.find(q => q.id === questionId);

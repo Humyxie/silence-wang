@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
-import type { QuizState, UserAnswers } from '../types/quiz';
+import type { QuizState } from '../types/quiz';
 import type { PersonalityId } from '../types/personality';
 import { calculateScores, getPrimaryPersonality } from '../utils/calculator';
 
