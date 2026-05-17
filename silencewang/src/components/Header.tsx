@@ -5,13 +5,17 @@ export default function Header() {
   const location = useLocation();
 
   const getTitle = () => {
-    switch (location.pathname) {
+    const { pathname } = location;
+
+    if (pathname.startsWith('/result')) {
+      return '测试结果';
+    }
+    
+    switch (pathname) {
       case '/':
         return '';
       case '/quiz':
         return '测试中...';
-      case '/result':
-        return '测试结果';
       // default:
       //   return '汪苏泷音乐人格测试';
     }
