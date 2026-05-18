@@ -5,12 +5,12 @@ import Quiz from './pages/Quiz';
 import ResultPage from './pages/ResultPage';
 import About from './pages/About';
 
-const getBasename = () => {
-  const pathname = window.location.pathname;
-  // 假设部署在 /sulong-test/ 下，提取第一段路径
-  const match = pathname.match(/^\/[^\/]+/);
-  return match ? match[0] : '/';
-};
+// const getBasename = () => {
+//   const pathname = window.location.pathname;
+//   // 假设部署在 /sulong-test/ 下，提取第一段路径
+//   const match = pathname.match(/^\/[^\/]+/);
+//   return match ? match[0] : '/';
+// };
 
 function App() {
   return (
