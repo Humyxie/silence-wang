@@ -5,9 +5,11 @@ import Quiz from './pages/Quiz';
 import ResultPage from './pages/ResultPage';
 import About from './pages/About';
 
+const basename = import.meta.env.BASE_URL;
+
 function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={basename}>
       <Routes>
         <Route element={<MainLayout />}>
           <Route path="/" element={<StartPage />} />
