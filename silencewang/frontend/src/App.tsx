@@ -14,7 +14,7 @@ const getBasename = () => {
 
 function App() {
   return (
-    <HashRouter basename={getBasename()}>
+    <HashRouter>
       <Routes>
         <Route element={<MainLayout />}>
           <Route path="/" element={<StartPage />} />
